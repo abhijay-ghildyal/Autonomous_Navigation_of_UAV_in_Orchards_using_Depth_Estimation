@@ -1,0 +1,13 @@
+#!/bin/bash
+#SBATCH --partition=free_gpu        ### Partition (like a queue in PBS)
+#SBATCH --job-name=monodepth      ### Job Name
+#SBATCH --output=logs.out         ### File in which to store job output
+#SBATCH --error=logs.err          ### File in which to store job error messages
+#SBATCH --nodes=1               ### Node count required for the job
+#SBATCH --ntasks-per-node=1     ### Nuber of tasks to be launched per Node
+#SBATCH --gres=gpu:tesla:1 	### Number of GPU’s per node
+#SBATCH --nodelist=sn3
+module load python3
+module load cuda/8.0.44
+module load cudnn/6.0_cuda8.0
+python3 monodepth_simple_v3.py --image_path ../test_images/bag2/ --checkpoint_path ./models/model_city2kitti/model_city2kitti
